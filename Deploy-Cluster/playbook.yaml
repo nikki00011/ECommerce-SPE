@@ -2,7 +2,7 @@
 ---
 - name: Deploy Kubernates cluster
   hosts: localhost
-  remote_user: simha
+  remote_user: nikita
 
   tasks:
     - name: Run the Secreats and Configurations
