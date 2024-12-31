@@ -1,2 +1,1 @@
-[localhost]
-127.0.0.1 ansible_user=simha
+localhost ansible_ssh_user=nikita ansible_ssh_pass=Tusha23!
