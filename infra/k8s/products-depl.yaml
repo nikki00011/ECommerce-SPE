@@ -1,0 +1,44 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products
+  template:
+    metadata:
+      labels:
+        app: products
+    spec:
+      containers:
+        - name: products
+          image: narasimhannandagudi/ekart-products
+          env:
+            - name: ACCESS_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: tokens-secret
+                  key: ACCESS_TOKEN_SECRET
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: PRODUCTS_DB_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-srv
+spec:
+  selector:
+    app: products
+  type: ClusterIP
+  ports:
+    - name: products
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
